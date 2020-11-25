@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+// Blog.phpを呼び出す
+use App\Models\Blog;
+
 class BlogController extends Controller
 {
     /**
@@ -14,7 +17,9 @@ class BlogController extends Controller
      */
     public function showList()
     {
-        return view('blog.list');
+        $blogs = Blog::all();
+
+        return view('blog.list', ['blogs' => $blogs]);
     }
 
 }
