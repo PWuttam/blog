@@ -18,6 +18,5 @@
 // ブログ一覧画面を表示
 Route::get('/', 'BlogController@showList')->name('blogs');
 
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
+// ブログ詳細画面を表示
+Route::get('/blog/{id}', 'BlogController@showDetail')->name('show');
