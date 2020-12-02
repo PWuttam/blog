@@ -147,7 +147,7 @@ return [
 
     'attributes' => [
         'title' => 'タイトル',
-        'content' => 'コンテンツ',
+        'content' => 'ブログ内容',
     ],
 
 ];
