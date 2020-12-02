@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 // Blog.phpを呼び出す
 use App\Models\Blog;
 
+use App\Http\Requests\BlogRequest;
+
 class BlogController extends Controller
 {
     /**
@@ -37,5 +39,39 @@ class BlogController extends Controller
         }
 
         return view('blog.detail', ['blog' => $blog]);
+    }
+
+    /**
+     * ブログ登録画面を表示する
+     * 
+     * @return view
+     */
+    public function showCreate() 
+    {
+        return view('blog.form');
+    }
+
+    /**
+     * ブログ登録する
+     * 
+     * @return view
+     */
+    public function exeStore(BlogRequest $request) 
+    {
+        // ブログのデータを受け取る
+        $inputs = $request->all();
+
+        \DB::beginTransaction(); //エラーがあるなしで
+        try {
+            // ブログを登録
+            Blog::create($inputs);
+            \DB::commit();
+        } catch (\Throwable $e) {
+            \DB::rollback();
+            abort(500);
+        }
+
+        \Session::flash('err_msg', 'ブログを登録しました。');
+        return redirect(route('blogs'));        
     }
 }
